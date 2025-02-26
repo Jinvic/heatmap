@@ -1,5 +1,5 @@
 import requests
-import matplotlib
+from matplotlib.font_manager import FontManager
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -120,8 +120,11 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
         week_of_range = (date - start_date).days // 7  # 计算在当前时间范围内的周数
         calendar[day_of_week, week_of_range] = count
 
-    # 打印系统字体
-    print(matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf'))
+    # 打印支持的字体
+    mpl_fonts = set(f.name for f in FontManager().ttflist)
+    print('all font list get from matplotlib.font_manager:')
+    for f in sorted(mpl_fonts):
+        print('\t' + f)
 
     # 绘制热力图
     if platform.system() == "Windows":
