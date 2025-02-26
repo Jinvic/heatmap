@@ -15,8 +15,12 @@ jobs:
       # 2. 安装中文字体
       - name: Install Chinese fonts
         run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk
+          sudo apt update
+          sudo apt install fonts-noto-cjk
+          sudo apt install fontconfig
+          sudo dpkg-reconfigure fontconfig-config
+          sudo fc-cache -f -v
+          fc-list :lang=zh
 
       # 3. 设置 Python 环境
       - name: Set up Python
