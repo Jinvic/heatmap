@@ -11,13 +11,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 读取变量
-github_username = os.getenv("GITHUB_USERNAME")
-github_token = os.getenv("GITHUB_TOKEN")
-gitlab_user_id = os.getenv("GITLAB_USER_ID")
-gitlab_token = os.getenv("GITLAB_TOKEN")
-github_api_host = os.getenv("GITHUB_API_HOST")
-gitlab_api_host = os.getenv("GITLAB_API_HOST")
-expand_days = os.getenv("EXPAND_DAYS")
+github_username = os.getenv("_GITHUB_USERNAME")
+github_token = os.getenv("_GITHUB_TOKEN")
+gitlab_user_id = os.getenv("_GITLAB_USER_ID")
+gitlab_token = os.getenv("_GITLAB_TOKEN")
+github_api_host = os.getenv("_GITHUB_API_HOST")
+gitlab_api_host = os.getenv("_GITLAB_API_HOST")
+expand_days = os.getenv("_EXPAND_DAYS")
 
 
 # GitHub API 获取提交数据
