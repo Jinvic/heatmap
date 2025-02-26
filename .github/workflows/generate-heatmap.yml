@@ -33,13 +33,15 @@ jobs:
           GITLAB_USER_ID: ${{ secrets._GITLAB_USER_ID }}
           GITLAB_TOKEN: ${{ secrets._GITLAB_TOKEN }}
           GITLAB_API_HOST: ${{ secrets._GITLAB_API_HOST }}
+          EXPAND_DAYS: ${{ secrets._EXPAND_DAYS }}
         run: |
-          echo "GITHUB_USERNAME=$GITHUB_USERNAME" >> .env
-          echo "GITHUB_TOKEN=$GITHUB_TOKEN" >> .env
-          echo "GITHUB_API_HOST=$GITHUB_API_HOST" >> .env
-          echo "GITLAB_USER_ID=$GITLAB_USER_ID" >> .env
-          echo "GITLAB_TOKEN=$GITLAB_TOKEN" >> .env
-          echo "GITLAB_API_HOST=$GITLAB_API_HOST" >> .env
+          echo "_GITHUB_USERNAME=$GITHUB_USERNAME" >> .env
+          echo "_GITHUB_TOKEN=$GITHUB_TOKEN" >> .env
+          echo "_GITHUB_API_HOST=$GITHUB_API_HOST" >> .env
+          echo "_GITLAB_USER_ID=$GITLAB_USER_ID" >> .env
+          echo "_GITLAB_TOKEN=$GITLAB_TOKEN" >> .env
+          echo "_GITLAB_API_HOST=$GITLAB_API_HOST" >> .env
+          echo "_EXPAND_DAYS=$EXPAND_DAYS" >> .env
 
       # 5. 运行脚本生成热力图
       - name: Generate heatmap
