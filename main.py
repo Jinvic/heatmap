@@ -84,7 +84,9 @@ def merge_contributions(github_contributions, gitlab_contributions):
         merged[date] += count
     for date, count in gitlab_contributions.items():
         merged[date] += count
-    
+
+    # 创建dist目录
+    os.makedirs("./dist", exist_ok=True)
     # 保存为CSV格式
     with open('./dist/merged_contributions.csv', 'w', encoding='utf-8') as f:
         f.write("date,count\n")
