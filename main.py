@@ -1,10 +1,9 @@
 import requests
-from matplotlib.font_manager import FontManager
+# from matplotlib.font_manager import FontManager
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from collections import defaultdict
 import os
-import pandas as pd
 import numpy as np
 from dotenv import load_dotenv
 import platform
@@ -120,17 +119,17 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
         week_of_range = (date - start_date).days // 7  # 计算在当前时间范围内的周数
         calendar[day_of_week, week_of_range] = count
 
-    # 打印支持的字体
-    mpl_fonts = set(f.name for f in FontManager().ttflist)
-    print('all font list get from matplotlib.font_manager:')
-    for f in sorted(mpl_fonts):
-        print('\t' + f)
+    # # 打印支持的字体
+    # mpl_fonts = set(f.name for f in FontManager().ttflist)
+    # print('all font list get from matplotlib.font_manager:')
+    # for f in sorted(mpl_fonts):
+    #     print('\t' + f)
 
     # 绘制热力图
     if platform.system() == "Windows":
         plt.rcParams['font.sans-serif'] = ['SimHei']  # Windows 使用 SimHei
     elif platform.system() == "Linux":
-        plt.rcParams['font.sans-serif'] = ['Noto Sans CJK SC']  # Ubuntu 使用 Noto Sans CJK
+        plt.rcParams['font.sans-serif'] = ['Noto Sans CJK JP']  # Ubuntu 使用 Noto Sans CJK
     else:
         plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']  # macOS 使用 Arial Unicode MS
     plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
