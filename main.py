@@ -6,6 +6,7 @@ import os
 import pandas as pd
 import numpy as np
 from dotenv import load_dotenv
+import platform
 
 # 加载 .env 文件
 load_dotenv()
@@ -117,7 +118,12 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
         calendar[day_of_week, week_of_range] = count
 
     # 绘制热力图
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 使用 SimHei 字体
+    if platform.system() == "Windows":
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # Windows 使用 SimHei
+    elif platform.system() == "Linux":
+        plt.rcParams['font.sans-serif'] = ['Noto Sans CJK SC']  # Ubuntu 使用 Noto Sans CJK
+    else:
+        plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']  # macOS 使用 Arial Unicode MS
     plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
     plt.figure(figsize=(weeks, 2))
     plt.imshow(calendar, cmap="YlGnBu", aspect="auto", vmin=0, vmax=max(contributions.values()))
