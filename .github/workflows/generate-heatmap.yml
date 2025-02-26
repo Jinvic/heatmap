@@ -12,29 +12,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. 安装中文字体
-      - name: Install Chinese fonts
-        run: |
-          sudo apt update
-          sudo apt install -y fonts-noto-cjk
-          sudo apt install -y fontconfig
-          sudo dpkg-reconfigure fontconfig-config
-          sudo fc-cache -f -v
-          fc-list :lang=zh
-
-      # 3. 设置 Python 环境
+      # 2. 设置 Python 环境
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'  # 指定 Python 版本
 
-      # 4. 安装依赖
+      # 3. 安装依赖
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # 安装依赖
 
-      # 5. 设置环境变量
+      # 4. 设置环境变量
       - name: Set environment variables
         env:
           GITHUB_USERNAME: ${{ secrets._GITHUB_USERNAME }}
@@ -53,12 +43,12 @@ jobs:
           echo "_GITLAB_API_HOST=$GITLAB_API_HOST" >> .env
           echo "_EXPAND_DAYS=$EXPAND_DAYS" >> .env
 
-      # 6. 运行脚本生成热力图
+      # 5. 运行脚本生成热力图
       - name: Generate heatmap
         run: |
           python main.py  # 运行你的脚本
 
-      # 7. 上传生成的热力图和原始数据作为 Artifact
+      # 6. 上传生成的热力图和原始数据作为 Artifact
       - name: Upload heatmap and data as artifact
         uses: actions/upload-artifact@v4
         with:
