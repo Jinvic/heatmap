@@ -126,7 +126,7 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
     plt.xlabel("周数")
     plt.ylabel("星期几")
     plt.yticks(range(7), ["周一", "周二", "周三", "周四", "周五", "周六", "周日"])
-    plt.show()
+    # plt.show()
 
     # 保存热力图
     plt.savefig("heatmap.png", bbox_inches="tight")
