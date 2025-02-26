@@ -119,6 +119,9 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
         week_of_range = (date - start_date).days // 7  # 计算在当前时间范围内的周数
         calendar[day_of_week, week_of_range] = count
 
+    # 打印系统字体
+    print(plt.font_manager.findSystemFonts(fontpaths=None, fontext='ttf'))
+
     # 绘制热力图
     if platform.system() == "Windows":
         plt.rcParams['font.sans-serif'] = ['SimHei']  # Windows 使用 SimHei
