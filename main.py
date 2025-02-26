@@ -86,7 +86,7 @@ def merge_contributions(github_contributions, gitlab_contributions):
         merged[date] += count
     
     # 保存为CSV格式
-    with open('merged_contributions.csv', 'w', encoding='utf-8') as f:
+    with open('./dist/merged_contributions.csv', 'w', encoding='utf-8') as f:
         f.write("date,count\n")
         for date, count in merged.items():
             f.write(f"{date},{count}\n")
@@ -135,7 +135,7 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
     # plt.show()
 
     # 保存热力图
-    plt.savefig("heatmap.png", bbox_inches="tight")
+    plt.savefig("./dist/heatmap.png", bbox_inches="tight")
     plt.close()
 
 # 示例使用

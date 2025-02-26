@@ -58,7 +58,6 @@ jobs:
       - name: Upload heatmap and data as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: heatmap_and_data
-          path: |
-            heatmap.png  # 热力图文件路径
-            merged_contributions.csv  # 数据文件路径
+          name: heatmap
+          path: ./dist # 上传路径
+          retention-days: 7 # 保留天数
