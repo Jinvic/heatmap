@@ -44,7 +44,7 @@ jobs:
       # 5. 运行脚本生成热力图
       - name: Generate heatmap
         run: |
-          python generate_heatmap.py  # 运行你的脚本
+          python main.py  # 运行你的脚本
 
       # 6. 上传生成的热力图作为 Artifact
       - name: Upload heatmap as artifact
