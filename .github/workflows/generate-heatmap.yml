@@ -48,14 +48,14 @@ jobs:
 
       # 6. 上传生成的热力图作为 Artifact
       - name: Upload heatmap as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: heatmap
           path: heatmap.png  # 热力图文件路径
 
       # 7. 上传生成的热力图原始数据
       - name: Upload heatmap_data as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: heatmap_data
           path: merged_contributions.csv  # 数据文件路径
