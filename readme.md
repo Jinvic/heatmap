@@ -1,4 +1,4 @@
-# GitHub与GitLab合并热力图
+# 合并GitHub与GitLab热力图
 
 ## 简介
 
@@ -21,8 +21,8 @@
 1. 克隆项目到本地：
 
    ```bash
-   git clone <项目地址>
-   cd <项目目录>
+   git clone https://github.com/Jinvic/heatmap
+   cd heatmap
    ```
 
 2. 安装依赖：
@@ -35,11 +35,13 @@
    在项目根目录下创建一个`.env`文件，并添加以下内容：
 
    ```env
-   GITHUB_USERNAME=你的GitHub用户名
-   GITHUB_TOKEN=你的GitHub访问令牌
-   GITLAB_USER_ID=你的GitLab用户ID
-   GITLAB_TOKEN=你的GitLab访问令牌
-   EXPAND_DAYS=60  # 可选，设置要分析的天数
+    GITHUB_USERNAME=你的GitHub用户名
+    GITHUB_TOKEN=你的GitHub访问令牌
+    GITHUB_API_HOST=https://api.github.com
+    GITLAB_USER_ID=你的GitLab用户ID
+    GITLAB_TOKEN=你的GitLab访问令牌
+    GITLAB_API_HOST=https://gitlab.com/api/v4  # 支持自建的GitLab仓库
+    EXPAND_DAYS=60  # 可选，设置要分析的天数
    ```
 
 4. 生成热力图:
@@ -54,5 +56,5 @@
 
 ## TODO List
 
--[ ] 更多平台支持
--[ ] 更美观的热力图
+- [ ] 更多平台支持
+- [ ] 更美观的热力图
