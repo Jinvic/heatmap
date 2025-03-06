@@ -14,7 +14,7 @@
 ## 环境要求
 
 - Python 3.10
-- 相关依赖库：`requests`, `matplotlib`, `numpy`, `pandas`, `python-dotenv`
+- 相关依赖库：`requests`, `matplotlib`, `numpy`, `zhplot`, `PyYAML`
 
 ## 本地部署
 
