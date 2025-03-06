@@ -27,7 +27,7 @@ jobs:
       # 4. 设置环境变量
       - name: Create config file
         run: |
-          echo ${{ secrets.CONFIG_YAML }} > config.yaml
+          echo "${{ secrets.CONFIG_YAML }}" > config.yaml
 
       # 5. 运行脚本生成热力图
       - name: Generate heatmap
