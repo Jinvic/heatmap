@@ -38,18 +38,18 @@
    github_accounts:
    - username: 账户1的GitHub用户名
       token: 账户1的GitHub访问令牌
-      host: 账户1的GitHub主机地址
+      host: https://api.github.com
    - username: 账户2的GitHub用户名
       token: 账户2的GitHub访问令牌
-      host: 账户2的GitHub主机地址
+      host: 账户2的GitHub API地址
 
    gitlab_accounts:
    - user_id: 账户1的GitLab用户ID
       token: 账户1的GitLab访问令牌
-      host: 账户1的GitLab主机地址
+      host: https://readboy.com/api/v4
    - user_id: 账户2的GitLab用户ID
       token: 账户2的GitLab访问令牌
-      host: 账户2的GitLab主机地址
+      host: 账户2的GitLab API地址
 
    expand_days: 要分析的天数
    ```
