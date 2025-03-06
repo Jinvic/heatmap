@@ -25,23 +25,9 @@ jobs:
           pip install -r requirements.txt  # 安装依赖
 
       # 4. 设置环境变量
-      - name: Set environment variables
-        env:
-          GITHUB_USERNAME: ${{ secrets._GITHUB_USERNAME }}
-          GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
-          GITHUB_API_HOST: ${{ secrets._GITHUB_API_HOST }}
-          GITLAB_USER_ID: ${{ secrets._GITLAB_USER_ID }}
-          GITLAB_TOKEN: ${{ secrets._GITLAB_TOKEN }}
-          GITLAB_API_HOST: ${{ secrets._GITLAB_API_HOST }}
-          EXPAND_DAYS: ${{ secrets._EXPAND_DAYS }}
+      - name: Create config file
         run: |
-          echo "_GITHUB_USERNAME=$GITHUB_USERNAME" >> .env
-          echo "_GITHUB_TOKEN=$GITHUB_TOKEN" >> .env
-          echo "_GITHUB_API_HOST=$GITHUB_API_HOST" >> .env
-          echo "_GITLAB_USER_ID=$GITLAB_USER_ID" >> .env
-          echo "_GITLAB_TOKEN=$GITLAB_TOKEN" >> .env
-          echo "_GITLAB_API_HOST=$GITLAB_API_HOST" >> .env
-          echo "_EXPAND_DAYS=$EXPAND_DAYS" >> .env
+          echo ${{ secrets.CONFIG_YAML }} > config.yaml
 
       # 5. 运行脚本生成热力图
       - name: Generate heatmap
