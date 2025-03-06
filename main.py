@@ -5,24 +5,14 @@ from datetime import datetime, timedelta
 from collections import defaultdict
 import os
 import numpy as np
-from dotenv import load_dotenv
+import yaml
 
-# 加载 .env 文件
-load_dotenv()
-
-# 读取变量
-github_username = os.getenv("_GITHUB_USERNAME")
-github_token = os.getenv("_GITHUB_TOKEN")
-gitlab_user_id = os.getenv("_GITLAB_USER_ID")
-gitlab_token = os.getenv("_GITLAB_TOKEN")
-github_api_host = os.getenv("_GITHUB_API_HOST")
-gitlab_api_host = os.getenv("_GITLAB_API_HOST")
-expand_days = os.getenv("_EXPAND_DAYS")
-
+with open('config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
 
 # GitHub API 获取提交数据
-def get_github_contributions(username, token ,since_date):
-    url = f"{github_api_host}/users/{username}/events"
+def get_github_contributions(username, token, host, since_date):
+    url = f"{host}/users/{username}/events"
     headers = {"Authorization": f"token {token}"}
     params = {
         "per_page": 100,
@@ -49,8 +39,8 @@ def get_github_contributions(username, token ,since_date):
     return contributions
 
 # GitLab API 获取提交数据
-def get_gitlab_contributions(user_id, token, since_date):
-    url = f"{gitlab_api_host}/users/{user_id}/events"
+def get_gitlab_contributions(user_id, token, host, since_date):
+    url = f"{host}/users/{user_id}/events"
     headers = {"PRIVATE-TOKEN": token}
     params = {
         "per_page": 100,
@@ -77,12 +67,16 @@ def get_gitlab_contributions(user_id, token, since_date):
     return contributions
 
 # 合并数据并保存为CSV格式
-def merge_contributions(github_contributions, gitlab_contributions):
+def merge_contributions():
     merged = defaultdict(int)
-    for date, count in github_contributions.items():
-        merged[date] += count
-    for date, count in gitlab_contributions.items():
-        merged[date] += count
+    for github_account in config['github_accounts']:
+        github_contributions = get_github_contributions(github_account['username'], github_account['token'], github_account['host'], since_date)
+        for date, count in github_contributions.items():
+            merged[date] += count
+    for gitlab_account in config['gitlab_accounts']:
+        gitlab_contributions = get_gitlab_contributions(gitlab_account['user_id'], gitlab_account['token'], gitlab_account['host'], since_date)
+        for date, count in gitlab_contributions.items():
+            merged[date] += count
 
     # 创建dist目录
     os.makedirs("./dist", exist_ok=True)
@@ -133,8 +127,6 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
     plt.close()
 
 # 示例使用
-since_date = (datetime.now() - timedelta(days=int(expand_days))).date()
-github_contributions = get_github_contributions(github_username, github_token, since_date)
-gitlab_contributions = get_gitlab_contributions(gitlab_user_id, gitlab_token, since_date)
-merged_contributions = merge_contributions(github_contributions, gitlab_contributions)
-plot_custom_calendar_heatmap(merged_contributions, since_date, datetime.now().date())
+since_date = (datetime.now() - timedelta(days=int(config['expand_days']))).date()
+contributions = merge_contributions()
+plot_custom_calendar_heatmap(contributions, since_date, datetime.now().date())
