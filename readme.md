@@ -2,12 +2,12 @@
 
 ## 简介
 
-因为在两个平台都有提交,就简单写了这个合并来自GitHub和GitLab的提交数据，生成一张新的热力图。
+因为在两个平台都有提交,就简单写了这个合并来自GitHub和GitLab的贡献数据，生成一张新的热力图。
 
 ## 功能
 
-- 从GitHub和GitLab API获取提交数据
-- 合并两者的提交数据
+- 从GitHub和GitLab API获取事件数据
+- 合并两者的数据
 - 生成并保存热力图
 - 支持自定义时间范围
 
@@ -32,16 +32,26 @@
    ```
 
 3. 配置环境变量：
-   在项目根目录下创建一个`.env`文件，并添加以下内容：
+   在项目根目录下创建一个`config.yaml`文件，并添加以下内容：
 
-   ```env
-    _GITHUB_USERNAME=你的GitHub用户名
-    _GITHUB_TOKEN=你的GitHub访问令牌
-    _GITHUB_API_HOST=https://api.github.com
-    _GITLAB_USER_ID=你的GitLab用户ID
-    _GITLAB_TOKEN=你的GitLab访问令牌
-    _GITLAB_API_HOST=https://gitlab.com/api/v4  # 支持自建的GitLab仓库
-    _EXPAND_DAYS=60  # 可选，设置要分析的天数
+   ```yaml
+   github_accounts:
+   - username: 账户1的GitHub用户名
+      token: 账户1的GitHub访问令牌
+      host: 账户1的GitHub主机地址
+   - username: 账户2的GitHub用户名
+      token: 账户2的GitHub访问令牌
+      host: 账户2的GitHub主机地址
+
+   gitlab_accounts:
+   - user_id: 账户1的GitLab用户ID
+      token: 账户1的GitLab访问令牌
+      host: 账户1的GitLab主机地址
+   - user_id: 账户2的GitLab用户ID
+      token: 账户2的GitLab访问令牌
+      host: 账户2的GitLab主机地址
+
+   expand_days: 要分析的天数
    ```
 
 4. 生成热力图:
@@ -51,8 +61,9 @@
 ## Github Actions
 
 1. Fork项目
-2. 配置Secret作为环境变量
-3. 手动触发GitHub Actions
+2. 创建名为CONFIG_YAML的secret
+3. 按照`config.yaml.example`的格式填写配置
+4. 手动触发GitHub Actions
 
 ## TODO List
 

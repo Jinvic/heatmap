@@ -10,7 +10,7 @@ import yaml
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
-# GitHub API 获取提交数据
+# GitHub API 获取事件数据
 def get_github_contributions(username, token, host, since_date):
     url = f"{host}/users/{username}/events"
     headers = {"Authorization": f"token {token}"}
@@ -32,13 +32,13 @@ def get_github_contributions(username, token, host, since_date):
             event_date = datetime.strptime(event['created_at'], '%Y-%m-%dT%H:%M:%SZ').date()
             if event_date < since_date:
                 return contributions
-            if event['type'] == 'PushEvent':
-                contributions[event_date] += 1
+            # if event['type'] == 'PushEvent':
+            contributions[event_date] += 1
         params["page"] += 1
 
     return contributions
 
-# GitLab API 获取提交数据
+# GitLab API 获取事件数据
 def get_gitlab_contributions(user_id, token, host, since_date):
     url = f"{host}/users/{user_id}/events"
     headers = {"PRIVATE-TOKEN": token}
@@ -60,8 +60,8 @@ def get_gitlab_contributions(user_id, token, host, since_date):
             event_date = datetime.strptime(event['created_at'], '%Y-%m-%dT%H:%M:%S.%fZ').date()
             if event_date < since_date:
                 return contributions
-            if event['action_name'] == 'pushed to':
-                contributions[event_date] += 1
+            # if event['action_name'] == 'pushed to':
+            contributions[event_date] += 1
         params["page"] += 1
 
     return contributions
@@ -91,7 +91,7 @@ def merge_contributions():
 def plot_custom_calendar_heatmap(contributions, start_date, end_date):
     """
     生成一段时间内的网格状热力图
-    :param contributions: 提交数据，格式为 {日期: 提交次数}
+    :param contributions: 贡献数据，格式为 {日期: 贡献次数}
     :param start_date: 开始日期（datetime.date 对象）
     :param end_date: 结束日期（datetime.date 对象）
     """
@@ -115,9 +115,11 @@ def plot_custom_calendar_heatmap(contributions, start_date, end_date):
     plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
     plt.figure(figsize=(weeks, 2))
     plt.imshow(calendar, cmap="YlGnBu", aspect="auto", vmin=0, vmax=max(contributions.values()))
-    plt.colorbar(label="提交次数")
-    plt.title(f"{start_date} 到 {end_date} 的提交热力图", fontsize=16)
-    plt.xlabel("周数")
+    plt.colorbar(label="贡献次数")
+    plt.title(f"{start_date} 到 {end_date} 的贡献热力图", fontsize=16)
+    date_labels = [start_date + timedelta(days=i*7) for i in range(weeks)]
+    plt.xticks(range(weeks), [date.strftime("%Y-%m-%d") for date in date_labels], rotation=45)
+    
     plt.ylabel("星期几")
     plt.yticks(range(7), ["周一", "周二", "周三", "周四", "周五", "周六", "周日"])
     # plt.show()
