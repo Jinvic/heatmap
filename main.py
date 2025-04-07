@@ -69,14 +69,16 @@ def get_gitlab_contributions(user_id, token, host, since_date):
 # 合并数据并保存为CSV格式
 def merge_contributions():
     merged = defaultdict(int)
-    for github_account in config['github_accounts']:
-        github_contributions = get_github_contributions(github_account['username'], github_account['token'], github_account['host'], since_date)
-        for date, count in github_contributions.items():
-            merged[date] += count
-    for gitlab_account in config['gitlab_accounts']:
-        gitlab_contributions = get_gitlab_contributions(gitlab_account['user_id'], gitlab_account['token'], gitlab_account['host'], since_date)
-        for date, count in gitlab_contributions.items():
-            merged[date] += count
+    if config['github_accounts']:
+        for github_account in config['github_accounts']:
+            github_contributions = get_github_contributions(github_account['username'], github_account['token'], github_account['host'], since_date)
+            for date, count in github_contributions.items():
+                merged[date] += count
+    if config['gitlab_accounts']:
+        for gitlab_account in config['gitlab_accounts']:
+            gitlab_contributions = get_gitlab_contributions(gitlab_account['user_id'], gitlab_account['token'], gitlab_account['host'], since_date)
+            for date, count in gitlab_contributions.items():
+                merged[date] += count
 
     # 创建dist目录
     os.makedirs("./dist", exist_ok=True)
